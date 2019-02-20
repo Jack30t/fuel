@@ -28,7 +28,6 @@ import kotlin.coroutines.suspendCoroutine
 import kotlin.math.max
 
 class HttpClient(
-    private val proxy: Proxy? = null,
     var useHttpCache: Boolean = true,
     var decodeContent: Boolean = true,
     var hook: Client.Hook
@@ -227,7 +226,7 @@ class HttpClient(
     }
 
     private fun establishConnection(request: Request): URLConnection {
-        val urlConnection = if (proxy != null) request.url.openConnection(proxy) else request.url.openConnection()
+        val urlConnection = if (request.proxy != null) request.url.openConnection(request.proxy) else request.url.openConnection()
         return if (request.url.protocol == "https") {
             (urlConnection as HttpsURLConnection).apply {
                 sslSocketFactory = request.executionOptions.socketFactory

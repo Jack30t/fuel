@@ -3,6 +3,7 @@ package com.github.kittinunf.fuel.core
 import com.github.kittinunf.fuel.core.requests.CancellableRequest
 import java.io.File
 import java.io.InputStream
+import java.net.Proxy
 import java.net.URL
 import java.nio.charset.Charset
 
@@ -17,6 +18,10 @@ interface Request : RequestFactory.RequestConvertible {
     var executionOptions: RequestExecutionOptions
     val body: Body
     val enabledFeatures: RequestFeatures
+    var proxy: Proxy?
+
+
+    fun proxy(proxy: Proxy): Request
 
     /**
      * Add a [ProgressCallback] tracking the [Body] of the [Request]

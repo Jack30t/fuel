@@ -25,18 +25,26 @@ import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
+import java.net.Proxy
 import java.net.URL
 import java.net.URLConnection
 import java.nio.charset.Charset
 
 data class DefaultRequest(
-    override val method: Method,
-    override var url: URL,
-    override val headers: Headers = Headers(),
-    override var parameters: Parameters = listOf(),
-    internal var _body: Body = DefaultBody(),
-    override val enabledFeatures: RequestFeatures = mutableMapOf()
+        override val method: Method,
+        override var url: URL,
+        override val headers: Headers = Headers(),
+        override var parameters: Parameters = listOf(),
+        internal var _body: Body = DefaultBody(),
+        override val enabledFeatures: RequestFeatures = mutableMapOf(),
+        override var proxy: Proxy? = null
 ) : Request {
+
+    override fun proxy(proxy: Proxy): Request {
+        this.proxy = proxy
+        return this
+    }
+
     override lateinit var executionOptions: RequestExecutionOptions
     override val body: Body get() = _body
 

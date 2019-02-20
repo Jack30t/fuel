@@ -27,8 +27,7 @@ typealias FoldableResponseInterceptor = (ResponseTransformer) -> ResponseTransfo
 
 class FuelManager : RequestFactory, RequestFactory.Convenience {
 
-    var client: Client by readWriteLazy { HttpClient(proxy, hook = hook) }
-    var proxy: Proxy? = null
+    var client: Client by readWriteLazy { HttpClient(hook = hook) }
     var basePath: String? = null
     var timeoutInMillisecond: Int = 15_000
     var timeoutReadInMillisecond: Int = timeoutInMillisecond
@@ -360,7 +359,6 @@ class FuelManager : RequestFactory, RequestFactory.Convenience {
         val clean = FuelManager()
 
         client = clean.client
-        proxy = clean.proxy
         basePath = clean.basePath
         timeoutInMillisecond = clean.timeoutInMillisecond
         timeoutReadInMillisecond = clean.timeoutReadInMillisecond
